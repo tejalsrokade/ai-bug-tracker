@@ -2,7 +2,8 @@
 package com.bugtracker.ai_bug_tracker.controller;
 
 import com.bugtracker.ai_bug_tracker.dto.AnalyzeLogRequestDto;
-import com.bugtracker.ai_bug_tracker.service.AiAnalysisService;
+import com.bugtracker.ai_bug_tracker.entity.BugAnalysis;
+import com.bugtracker.ai_bug_tracker.service.BugAnalysisService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,23 +14,21 @@ import java.util.Map;
 @RequestMapping("/api/analysis")
 public class BugAnalysisController {
 
-    private final AiAnalysisService aiAnalysisService;
+
+    private final BugAnalysisService bugAnalysisService;
 
     public BugAnalysisController(
-            AiAnalysisService aiAnalysisService) {
-        this.aiAnalysisService = aiAnalysisService;
+            BugAnalysisService bugAnalysisService) {
+        this.bugAnalysisService = bugAnalysisService;
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> analyzeLog(
+    public ResponseEntity<BugAnalysis> analyzeLog(
             @Valid @RequestBody AnalyzeLogRequestDto request) {
 
-        String analysis = aiAnalysisService.analyzeLog(
-                request.getErrorLog()
-        );
+        BugAnalysis savedAnalysis =
+                bugAnalysisService.analyzeAndSave(request);
 
-        return ResponseEntity.ok(
-                Map.of("analysis", analysis)
-        );
+        return ResponseEntity.ok(savedAnalysis);
     }
 }
