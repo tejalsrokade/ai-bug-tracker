@@ -1,3 +1,4 @@
+
 package com.bugtracker.ai_bug_tracker.service;
 
 import com.bugtracker.ai_bug_tracker.dto.AiAnalysisResultDto;
@@ -9,6 +10,8 @@ import com.bugtracker.ai_bug_tracker.repository.BugAnalysisRepository;
 import com.bugtracker.ai_bug_tracker.repository.BugRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class BugAnalysisService {
@@ -30,9 +33,8 @@ public class BugAnalysisService {
     public BugAnalysis analyzeAndSave(AnalyzeLogRequestDto request) {
 
         Bug bug = bugRepository.findById(request.getBugId())
-                .orElseThrow(() -> new BugNotFoundException(
-                        request.getBugId()
-                ));
+                .orElseThrow(() ->
+                        new BugNotFoundException(request.getBugId()));
 
         AiAnalysisResultDto result =
                 aiAnalysisService.analyzeLog(request.getErrorLog());
@@ -44,5 +46,11 @@ public class BugAnalysisService {
         analysis.setSuggestedSteps(result.getSuggestedSteps());
 
         return bugAnalysisRepository.save(analysis);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BugAnalysis> getAllAnalyses() {
+        return bugAnalysisRepository
+                .findAllByOrderByCreatedAtDesc();
     }
 }

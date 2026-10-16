@@ -9,4 +9,5 @@ public interface BugAnalysisRepository
         extends JpaRepository<BugAnalysis, Long> {
 
     List<BugAnalysis> findByBugId(Long bugId);
+    List<BugAnalysis> findAllByOrderByCreatedAtDesc();
 }

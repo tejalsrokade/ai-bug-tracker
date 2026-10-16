@@ -5,7 +5,7 @@ import MainLayout from "./layouts/MainLayout";
 import Dashboard from "./pages/Dashboard";
 import Bugs from "./pages/Bugs";
 import LogAnalyzer from "./pages/LogAnalyzer";
-
+import AnalysisHistory from "./pages/AnalysisHistory";
 function App() {
   return (
     <BrowserRouter>
@@ -15,6 +15,7 @@ function App() {
           <Route path="/bugs" element={<Bugs />} />
           <Route path="/analyze" element={<LogAnalyzer />} />
           <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/analysis-history" element={<AnalysisHistory />} />
         </Route>
       </Routes>
     </BrowserRouter>

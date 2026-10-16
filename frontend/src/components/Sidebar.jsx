@@ -5,12 +5,14 @@ import {
   Bug,
   ScanSearch,
   BugOff,
+   History,
 } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", path: "/", icon: LayoutDashboard },
   { name: "Bugs", path: "/bugs", icon: Bug },
   { name: "Log Analyzer", path: "/analyze", icon: ScanSearch },
+   { name: "Analysis History", path: "/analysis-history", icon: History }
 ];
 
 function Sidebar() {

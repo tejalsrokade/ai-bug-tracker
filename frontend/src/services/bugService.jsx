@@ -22,3 +22,6 @@ export const deleteBug = (id) =>
 
 export const analyzeLog = (analysisData) =>
   api.post("/analysis", analysisData);
+
+export const getAnalysisHistory = () =>
+  api.get("/analysis");

@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -30,5 +31,14 @@ public class BugAnalysisController {
                 bugAnalysisService.analyzeAndSave(request);
 
         return ResponseEntity.ok(savedAnalysis);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BugAnalysis>> getAllAnalyses() {
+
+        List<BugAnalysis> analyses =
+                bugAnalysisService.getAllAnalyses();
+
+        return ResponseEntity.ok(analyses);
     }
 }
